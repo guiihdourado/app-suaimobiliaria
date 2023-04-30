@@ -81,7 +81,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       {...buttonProps}
-      className="w-full rounded-md bg-blue-600 hover:bg-blue-700 duration-300 text-white h-12 flex items-center justify-center"
+      className="w-full rounded-xl bg-sky-600 hover:bg-sky-700 duration-300 text-white h-12 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {isLoading ? <SpinnerLoading /> : children}
     </button>

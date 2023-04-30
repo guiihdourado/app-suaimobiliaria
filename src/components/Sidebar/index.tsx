@@ -27,7 +27,7 @@ export function Sidebar() {
           />
           <div className="text-left">
             <p className="font-semibold text-black/90 text-sm">
-              Guilherme Dourado
+              Guizin Du Rodo
             </p>
             <span className="text-black/70 text-xs">
               guiihdourado@gmail.com

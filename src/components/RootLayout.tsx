@@ -8,8 +8,8 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col h-screen">
-      <div className="w-full">
+    <div className="flex h-screen">
+      <div className="w-full flex">
         <Sidebar />
         {children}
       </div>

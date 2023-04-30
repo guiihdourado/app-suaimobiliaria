@@ -4,13 +4,15 @@ import {
   RiCommunityFill,
 } from 'react-icons/ri'
 
+import { ButtonLink } from '@/components'
+
 import { NavLink } from './NavLink'
 import { NavSection } from './NavSection'
 
-// import { useAuth } from '@/providers/AuthProvider'
+import { useAuth } from '@/providers/AuthProvider'
 
 export function SidebarNav() {
-  // const { logout } = useAuth()
+  const { logout } = useAuth()
 
   return (
     <div className="flex flex-col pl-8 gap-10 mt-6">
@@ -23,9 +25,14 @@ export function SidebarNav() {
         </NavLink>
       </NavSection>
       <NavSection title="CONFIGURAÇÃO">
-        <NavLink href="#" icon={RiLogoutCircleLine}>
+        <ButtonLink
+          onClick={() => {
+            logout()
+          }}
+          icon={RiLogoutCircleLine}
+        >
           Sair
-        </NavLink>
+        </ButtonLink>
       </NavSection>
     </div>
   )

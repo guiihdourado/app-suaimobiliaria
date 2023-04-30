@@ -11,7 +11,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     <div className="flex h-screen">
       <div className="w-full flex">
         <Sidebar />
-        {children}
+        <div className="flex flex-1 overflow-auto">{children}</div>
       </div>
     </div>
   )

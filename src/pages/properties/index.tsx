@@ -43,7 +43,7 @@ export default function Properties() {
                       </span>
                     </h3>
                     <span className="text-xs font-medium text-gray-500">
-                      3 Quartos • 2 Banheiros
+                      Setor F Norte QNF 22 Casa 27
                     </span>
 
                     {/* <span className="w-fit inline-flex items-center rounded-md bg-blue-500 px-2 py-1 text-base font-semibold text-white ring-1 ring-inset ring-blue-600/10">

@@ -26,7 +26,7 @@ export function Sidebar() {
             src="https://avatars.githubusercontent.com/u/8441209?v=4"
           />
           <div className="text-left">
-            <p className="font-semibold text-black/90 text-sm">
+            <p className="font-semibold text-black/80 text-sm">
               Guilherme Dourado
             </p>
             <span className="text-black/70 text-xs">

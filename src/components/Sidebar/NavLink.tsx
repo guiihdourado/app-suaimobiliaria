@@ -38,7 +38,7 @@ export function NavLink({
   return (
     <NextLink
       className={`flex items-center ${
-        isActive ? 'text-blue-600' : 'text-black/90'
+        isActive ? 'text-sky-600' : 'text-black/80'
       } hover:underline`}
       href={href}
       {...rest}

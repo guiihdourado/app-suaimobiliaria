@@ -16,7 +16,7 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({
       {...rest}
     >
       {Icon && <Icon fontSize="20" />}
-      <span className="ml-4 font-medium text-black/90">{children}</span>
+      <span className="ml-4 font-medium text-black/80">{children}</span>
     </button>
   )
 }

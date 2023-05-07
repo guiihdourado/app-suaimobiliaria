@@ -3,15 +3,12 @@ import { AuthContext, IAuthContext } from '../Context'
 
 type UseAuthProps = Pick<
   IAuthContext,
-  'token' | 'changeToken' | 'logout' | 'isAuthenticated'
+  'user' | 'login' | 'logout' | 'isAuthenticated'
 >
 
 const useAuth = (): UseAuthProps => {
-  const token = useContextSelector(AuthContext, (state) => state.token)
-  const changeToken = useContextSelector(
-    AuthContext,
-    (state) => state.changeToken,
-  )
+  const user = useContextSelector(AuthContext, (state) => state.user)
+  const login = useContextSelector(AuthContext, (state) => state.login)
   const logout = useContextSelector(AuthContext, (state) => state.logout)
   const isAuthenticated = useContextSelector(
     AuthContext,
@@ -19,8 +16,8 @@ const useAuth = (): UseAuthProps => {
   )
 
   return {
-    token,
-    changeToken,
+    user,
+    login,
     logout,
     isAuthenticated,
   }

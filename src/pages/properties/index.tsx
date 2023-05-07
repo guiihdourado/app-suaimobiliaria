@@ -1,13 +1,67 @@
-import { Button, RootLayout } from '@/components'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
+import Link from 'next/link'
 import Image from 'next/image'
 
+import { DateTime } from 'luxon'
 import { FiCopy } from 'react-icons/fi'
 
-const properties = Array.from({ length: 10 }, (_, i) => i + 1)
+import { api } from '@/services/api'
+import { useAuth } from '@/providers/AuthProvider'
+
+import { Button, RootLayout } from '@/components'
+
+type Category =
+  | 'apartment'
+  | 'residentialHouse'
+  | 'condominiumHouse'
+  | 'villageHouse'
+
+type Property = {
+  id: string
+  name: string
+  category: Category
+  propertyStatus: 'sell' | 'rent'
+  propertyType: string
+  zipCode: string
+  address: string
+  city: string
+  addressNumber: string
+  neighborhood: string
+  commercialNeighborhood: string | null
+  state: string
+  complement: string
+  price: number
+  views: number
+  extras: string[]
+  tenantId: string
+  createdAt: string
+}
+
+const propertyStatus = {
+  sell: 'Vender',
+  rent: 'Alugar',
+}
+
+const category = {
+  apartment: 'Apartamento',
+  residentialHouse: 'Casa',
+  condominiumHouse: 'Casa de Condomínio',
+  villageHouse: 'Casa de Vila',
+}
 
 export default function Properties() {
+  const { user } = useAuth()
+  const [properties, setProperties] = useState<Property[]>([])
+
+  useEffect(() => {
+    api
+      .get<Property[]>(`/properties/${user?.tenantId}/getProperties`)
+      .then(({ data }) => {
+        setProperties(data)
+      })
+  }, [user?.tenantId])
+
   return (
     <RootLayout>
       <div className="py-10 px-14 w-full bg-slate-50 mb-10">
@@ -21,15 +75,15 @@ export default function Properties() {
         </div>
 
         <div className="flex flex-col mt-8 gap-4 pb-8">
-          {properties.map((property) => (
+          {properties.map((property, key) => (
             <div
-              key={property}
+              key={property.id}
               className="flex border border-slate-200 bg-white items-center justify-between py-4 px-6 rounded-2xl cursor-pointer hover:shadow-md hover:duration-300"
             >
               <div className="flex gap-4">
                 <Image
                   src={
-                    property % 2 === 0
+                    key % 2 === 0
                       ? 'https://casacor.abril.com.br/wp-content/uploads/sites/7/2022/01/Casa-Liu-Raiz-Arquitetura-Foto-Leonardo-Giantomasi-2.jpg'
                       : 'https://blog.archtrends.com/wp-content/uploads/2022/10/casas-modernas-1200x900.jpg'
                   }
@@ -41,10 +95,11 @@ export default function Properties() {
                 <div className="flex flex-col justify-between gap-2">
                   <div className="flex flex-col">
                     <h4 className="text-xs font-medium text-gray-500">
-                      Casa - Aluguel
+                      {category[property.category]} -{' '}
+                      {propertyStatus[property.propertyStatus]}
                     </h4>
                     <h3 className="text-base font-semibold text-black/80 flex items-center gap-2">
-                      Excelente Casa, QNF 22, Bem Localizado
+                      {property.name}
                       <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
                         <div className="flex items-center justify-center gap-1">
                           42IE7RN <FiCopy className="cursor-pointer" />
@@ -52,36 +107,32 @@ export default function Properties() {
                       </span>
                     </h3>
                     <span className="text-xs font-medium text-gray-500">
-                      Setor F Norte QNF 22 Casa 27
+                      {property.address}, {property.addressNumber},{' '}
+                      {property.neighborhood} - {property.zipCode} -{' '}
+                      {property.city}/{property.state}
                     </span>
-
-                    {/* <span className="w-fit inline-flex items-center rounded-md bg-blue-500 px-2 py-1 text-base font-semibold text-white ring-1 ring-inset ring-blue-600/10">
-                    R$ 3000,00
-                  </span> */}
                   </div>
                   <div className="flex flex-col">
                     <span className="font-semibold text-lg text-sky-700 flex flex-col leading-5">
-                      R$ 3000,00
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(property.price / 100)}
                       <span className="font-light text-xs text-gray-500">
-                        Postado em 10/10/2021
+                        Postado em{' '}
+                        {DateTime.fromISO(property.createdAt).toFormat(
+                          'dd/MM/yyyy',
+                        )}
                       </span>
                     </span>
                   </div>
-                  {/* <div className="flex gap-1">
-                  <span className="inline-flex items-center rounded-md bg-blue-500 px-2 py-1 text-xs font-normal text-white ring-1 ring-inset ring-blue-600/10">
-                    Casa
-                  </span>
-                  <span className="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-normal text-white ring-1 ring-inset ring-orange-600/10">
-                    Aluguel
-                  </span>
-                </div> */}
                 </div>
               </div>
               <div className="flex flex-col pl-7">
                 <div className="flex divide-x gap-7">
                   <span className="text-xs font-light text-gray-500 flex flex-col items-center justify-center">
                     <span className="text-lg font-semibold text-black/90">
-                      100
+                      {property.views}
                     </span>
                     Visualizações
                   </span>

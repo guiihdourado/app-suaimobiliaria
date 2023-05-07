@@ -1,9 +1,20 @@
 import { createContext } from 'use-context-selector'
 
+export type UserData = {
+  name: string
+  email: string
+  tenantId: string
+}
+
+export type Login = {
+  userData: UserData
+  token: string
+}
+
 export interface IAuthContext {
-  token: string | null
+  user: UserData | null
   isAuthenticated: boolean
-  changeToken: (token: string) => void
+  login: (data: Login) => void
   logout: () => void
 }
 

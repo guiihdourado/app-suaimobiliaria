@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
@@ -27,13 +26,12 @@ type SessionsResponse = {
   user: {
     email: string
     name: string
+    tenantId: string
   }
 }
 
 export default function Login() {
-  const router = useRouter()
-
-  const { changeToken } = useAuth()
+  const { login } = useAuth()
 
   const { register, handleSubmit, formState } = useForm<LoginForm>({
     resolver: yupResolver(schema),
@@ -46,7 +44,6 @@ export default function Login() {
       <div className="flex bg-white flex-col w-[32rem] p-12 gap-8 rounded-xl shadow-xl">
         <div className="flex items-center justify-center flex-col">
           <Image src={logo} alt="Logo" className="w-72" />
-          <span className="text-sky-900 font-bold mt-4">Login</span>
         </div>
         <form
           className="flex flex-col gap-8"
@@ -58,9 +55,10 @@ export default function Login() {
                 password,
               })
               .then(({ data }) => {
-                changeToken(data.token)
-
-                router.push(`/`)
+                login({
+                  token: data.token,
+                  userData: data.user,
+                })
               })
               .catch(() => {
                 alert('Erro ao fazer login')

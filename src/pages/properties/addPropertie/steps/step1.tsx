@@ -30,7 +30,6 @@ const Step1: React.FC<Step1Props> = ({ control }) => {
         value: 'rooftop',
         label: 'Cobertura',
       },
-
       {
         value: 'rural',
         label: 'Rural',
@@ -84,13 +83,86 @@ const Step1: React.FC<Step1Props> = ({ control }) => {
         label: 'Sala Comercial',
       },
     ]
-  }, [])
+  }, []).sort((a, b) => {
+    if (a.label < b.label) {
+      return -1
+    }
+    if (a.label > b.label) {
+      return 1
+    }
+    return 0
+  })
+
+  const optionsSubCategory = useMemo(() => {
+    return [
+      {
+        value: 'default',
+        label: 'Padrão',
+      },
+      {
+        value: 'rooftop',
+        label: 'Cobertura',
+      },
+      {
+        value: 'flat',
+        label: 'Flat',
+      },
+      {
+        value: 'kitnet',
+        label: 'Kitnet',
+      },
+      {
+        value: 'loft',
+        label: 'Loft',
+      },
+      {
+        value: 'studio',
+        label: 'Studio',
+      },
+      {
+        value: 'condominiumHouse',
+        label: 'Casa de Condomínio',
+      },
+      {
+        value: 'villageHouse',
+        label: 'Casa de Vila',
+      },
+      {
+        value: 'singleStoreyHouse',
+        label: 'Casa Térrea',
+      },
+      {
+        value: 'gallery',
+        label: 'Galeria',
+      },
+      {
+        value: 'shopping',
+        label: 'Shopping',
+      },
+      {
+        value: 'clinic',
+        label: 'Clínica',
+      },
+      {
+        value: 'office',
+        label: 'Escritório',
+      },
+    ]
+  }, []).sort((a, b) => {
+    if (a.label < b.label) {
+      return -1
+    }
+    if (a.label > b.label) {
+      return 1
+    }
+    return 0
+  })
 
   return (
     <div className="flex flex-col gap-10">
       <h1>Diga-nos, que tipo de operação deseja realizar?</h1>
       <div className="flex flex-col gap-2">
-        <span className="text-gray-400">Tipo de operação</span>
+        <span className="text-gray-400">Status do imóvel</span>
         <div className="w-fit flex divide-x-[1px] border-[1px] rounded-xl">
           <button
             className={classNames('p-4', {
@@ -110,15 +182,27 @@ const Step1: React.FC<Step1Props> = ({ control }) => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <span className="text-gray-400">Tipo de imóvel</span>
-        <Select
-          name="category"
-          control={control}
-          block
-          placeholder="Selecione uma opção"
-          options={optionsCategory}
-        />
+      <div className="flex gap-4">
+        <div className="flex flex-1 flex-col gap-2">
+          <span className="text-gray-400">Categoria do imóvel</span>
+          <Select
+            name="category"
+            control={control}
+            block
+            placeholder="Selecione uma opção"
+            options={optionsCategory}
+          />
+        </div>
+        <div className="flex flex-1 flex-col gap-2">
+          <span className="text-gray-400">Subcategoria do imóvel</span>
+          <Select
+            name="subCategory"
+            control={control}
+            block
+            placeholder="Selecione uma opção"
+            options={optionsSubCategory}
+          />
+        </div>
       </div>
     </div>
   )

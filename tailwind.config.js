@@ -1,5 +1,3 @@
-import { fontFamily } from 'tailwindcss/defaultTheme'
-
 /** @type {import('tailwindcss').Config} */
 export const content = [
   './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -9,7 +7,7 @@ export const content = [
 export const theme = {
   extend: {
     fontFamily: {
-      sans: ['var(--font-inter)', ...fontFamily.sans],
+      Inter: ['Inter', 'sans-serif'],
     },
     backgroundImage: {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

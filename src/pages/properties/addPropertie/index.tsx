@@ -34,7 +34,7 @@ const schema = yup.object().shape({
 type LoginForm = yup.InferType<typeof schema>
 
 const AddProperties: React.FC = () => {
-  const { control } = useForm<LoginForm>({
+  const { control, formState, register, setValue, watch } = useForm<LoginForm>({
     resolver: yupResolver(schema),
   })
   const steps = useMemo(() => {
@@ -45,12 +45,19 @@ const AddProperties: React.FC = () => {
         stepTitle: 'Principais',
       },
       {
-        step: <Step2 />,
+        step: (
+          <Step2
+            formState={formState}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+          />
+        ),
         stepNumber: 2,
         stepTitle: 'Localização',
       },
     ]
-  }, [control])
+  }, [control, formState, register, setValue, watch])
   return (
     <RootLayout>
       <MultiStep steppers={steps} title="Vamos criar seu anúncio!" />

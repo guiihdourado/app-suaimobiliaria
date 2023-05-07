@@ -35,7 +35,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
       <StepHeader steppers={steppers} stepCurrentNumber={stepCurrentNumber} />
       <div className="w-full h-full flex flex-col justify-start items-center p-8">
         <div className="w-full h-fit flex flex-col">
-          <div>
+          <div className="mb-2">
             {title ? (
               <span className="font-semibold pb-4 ">{title} - </span>
             ) : null}

@@ -1,3 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* div {
+  ::-webkit-scrollbar {
+    width: 8px;
+    border-width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    border-color: #ffffff;
+    border-width: 2px 2px 2px 2px;
+    border-style: solid;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    border-style: solid;
+    border-width: 1px 8px 1px 8px;
+  }
+} */

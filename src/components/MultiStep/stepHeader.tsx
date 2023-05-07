@@ -26,7 +26,7 @@ const StepHeader: React.FC<NumbersStepsProps> = ({
               {
                 'w-full after:w-full after:h-1 after:border-b after:border-sky-100 after:border-4 after:inline-block':
                   stepNumber !== steppers.length - 1,
-                'after:border-sky-800': stepNumber + 1 < stepCurrentNumber,
+                'after:border-sky-700': stepNumber + 1 < stepCurrentNumber,
               },
             )}
           >
@@ -34,7 +34,7 @@ const StepHeader: React.FC<NumbersStepsProps> = ({
               className={classNames(
                 'flex items-center justify-center w-10 h-10 bg-sky-100 rounded-full lg:h-12 lg:w-12  shrink-0 text-white',
                 {
-                  'bg-sky-800': stepNumber < stepCurrentNumber,
+                  'bg-sky-700': stepNumber < stepCurrentNumber,
                 },
               )}
             >

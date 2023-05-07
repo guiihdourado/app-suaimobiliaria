@@ -28,14 +28,14 @@ const customStyles = {
     height: '48px',
     borderRadius: '12px',
     boxShadow: null,
-    borderColor: isFocused ? '#151b26' : '#E0E0E0',
+    borderColor: isFocused ? '#0369A1' : '#E0E0E0',
     '&:hover': {
-      borderColor: '#151b26',
+      borderColor: '#0369A1',
     },
   }),
   valueContainer: (styles: any) => ({
     ...styles,
-    height: 'fit-content',
+    height: '48px',
     padding: '0 6px',
   }),
 
@@ -48,18 +48,49 @@ const customStyles = {
   }),
   indicatorsContainer: (styles: any) => ({
     ...styles,
-    height: '32px',
+    height: '48px',
   }),
+  menu: (styles: any) => ({
+    ...styles,
+    borderRadius: '12px',
+    marginTop: '4px',
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+  }),
+  menuList: (styles: any) => ({
+    ...styles,
+    padding: '0px',
+    '::-webkit-scrollbar': {
+      width: '5px',
+      borderWidth: '5px',
+      height: '5px',
+    },
+    '::-webkit-scrollbar-track-piece': {
+      backgroundColor: 'transparent',
+      borderColor: '#ffffff',
+      borderWidth: '2px 2px 2px 2px',
+      borderStyle: 'solid',
+    },
+    '::-webkit-scrollbar-thumb': {
+      borderRadius: '10px',
+      backgroundColor: ' #c5c5c5',
+      borderColor: '#c5c5c5',
+      borderStyle: 'solid',
+      borderWidth: '1px 8px 1px 8px',
+    },
+  }),
+
   option: (styles: any, { isDisabled, isSelected }: any) => {
     return {
       ...styles,
-      height: '32px',
+      borderRadius: '12px',
+      height: '44px',
       display: 'flex',
-      backgroundColor: isSelected ? '#F5F5F5' : 'white',
-      color: 'black',
+      backgroundColor: isSelected ? '#0369A1' : 'white',
+      color: isSelected ? 'white' : 'black',
       cursor: isDisabled ? 'not-allowed' : 'default',
       '&:hover': {
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#0284C7',
+        color: 'white',
       },
     }
   },

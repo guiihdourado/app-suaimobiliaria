@@ -6,7 +6,7 @@ import { SidebarNav } from './SidebarNav'
 
 export function Sidebar() {
   return (
-    <aside className="w-64 h-screen bg-gray-100 flex justify-between flex-col flex-start py-5">
+    <aside className="w-64 h-screen bg-[#F3F7F8] flex justify-between flex-col flex-start py-5">
       <div className=" flex flex-col flex-start w-full">
         <div className="w-full pt-2 pb-5 flex items-center justify-center">
           <Image src={logo} alt="Logo" className="w-44" />

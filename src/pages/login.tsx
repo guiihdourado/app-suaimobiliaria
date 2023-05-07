@@ -42,13 +42,11 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen bg-gray-200">
-      <div className="flex bg-white flex-col w-[32rem] p-12 gap-8">
+    <div className="flex items-center justify-center w-screen h-screen bg-[#F3F7F8]">
+      <div className="flex bg-white flex-col w-[32rem] p-12 gap-8 rounded-xl shadow-xl">
         <div className="flex items-center justify-center flex-col">
           <Image src={logo} alt="Logo" className="w-72" />
-          <span className="text-gray-500 font-medium mt-4">
-            Entre na sua conta
-          </span>
+          <span className="text-sky-900 font-bold mt-4">Login</span>
         </div>
         <form
           className="flex flex-col gap-8"

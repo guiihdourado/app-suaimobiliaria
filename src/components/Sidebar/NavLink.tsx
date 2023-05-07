@@ -2,6 +2,7 @@ import { ElementType, useMemo } from 'react'
 
 import { useRouter } from 'next/router'
 import NextLink, { LinkProps as NextLinkProps } from 'next/link'
+import classNames from 'classnames'
 
 type NavLinkProps = NextLinkProps & {
   icon: ElementType
@@ -37,9 +38,12 @@ export function NavLink({
 
   return (
     <NextLink
-      className={`flex items-center ${
-        isActive ? 'text-sky-600' : 'text-black/80'
-      } hover:underline`}
+      className={classNames(
+        'flex items-center p-4 hover:bg-sky-600 hover:text-white text-black/80',
+        {
+          'bg-sky-700 text-white hover:bg-sky-700': isActive,
+        },
+      )}
       href={href}
       {...rest}
     >

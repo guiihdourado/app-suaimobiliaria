@@ -12,11 +12,11 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({
 }) => {
   return (
     <button
-      className="bg-inherit hover:bg-inherit hover:underline p-0 mt-[-8px] flex items-center justify-start"
+      className="bg-inherit hover:bg-inherit text-black/80 hover:text-sky-700 p-4 mt-[-8px] flex items-center justify-start"
       {...rest}
     >
       {Icon && <Icon fontSize="20" />}
-      <span className="ml-4 font-medium text-black/80">{children}</span>
+      <span className="ml-4 font-medium ">{children}</span>
     </button>
   )
 }

@@ -15,7 +15,7 @@ export function SidebarNav() {
   const { logout } = useAuth()
 
   return (
-    <div className="flex flex-col pl-8 gap-10 mt-6">
+    <div className="flex flex-col gap-10 mt-6">
       <NavSection title="GERAL">
         <NavLink href="/" shouldMatchExactHref icon={RiDashboardFill}>
           Dashboard

@@ -25,8 +25,8 @@ const customStyles = {
   control: (styles: any, { isFocused }: any) => ({
     ...styles,
     minHeight: '32px',
-    height: 'fit-content',
-    borderRadius: '2px',
+    height: '48px',
+    borderRadius: '12px',
     boxShadow: null,
     borderColor: isFocused ? '#151b26' : '#E0E0E0',
     '&:hover': {

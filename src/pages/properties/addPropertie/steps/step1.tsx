@@ -8,8 +8,82 @@ interface Step1Props {
 
 const Step1: React.FC<Step1Props> = ({ control }) => {
   const [typeOperation, setTypeOperation] = useState('sale')
-  const optionsPropertyType = useMemo(() => {
-    return []
+  const optionsCategory = useMemo(() => {
+    return [
+      {
+        value: 'apartment',
+        label: 'Apartamento',
+      },
+      {
+        value: 'residentialHouse',
+        label: 'Casa Residencial',
+      },
+      {
+        value: 'condominiumHouse',
+        label: 'Casa de Condomínio',
+      },
+      {
+        value: 'villageHouse',
+        label: 'Casa de Vila',
+      },
+      {
+        value: 'rooftop',
+        label: 'Cobertura',
+      },
+
+      {
+        value: 'rural',
+        label: 'Rural',
+      },
+      {
+        value: 'flat',
+        label: 'Flat',
+      },
+      {
+        value: 'residentialGround',
+        label: 'Terreno Residencial',
+      },
+      {
+        value: 'loft',
+        label: 'Loft',
+      },
+      {
+        value: 'commercialHouse',
+        label: 'Casa Comercial',
+      },
+      {
+        value: 'clinic',
+        label: 'Clínica',
+      },
+      {
+        value: 'deposit',
+        label: 'Depósito',
+      },
+      {
+        value: 'garage',
+        label: 'Garagem',
+      },
+      {
+        value: 'hotel',
+        label: 'Hotel',
+      },
+      {
+        value: 'commercialGround',
+        label: 'Terreno Comercial',
+      },
+      {
+        value: 'store',
+        label: 'Loja',
+      },
+      {
+        value: 'building',
+        label: 'Prédio',
+      },
+      {
+        value: 'livingRoom',
+        label: 'Sala Comercial',
+      },
+    ]
   }, [])
 
   return (
@@ -39,10 +113,11 @@ const Step1: React.FC<Step1Props> = ({ control }) => {
       <div className="flex flex-col gap-2">
         <span className="text-gray-400">Tipo de imóvel</span>
         <Select
-          name="propertyType"
+          name="category"
           control={control}
           block
           placeholder="Selecione uma opção"
+          options={optionsCategory}
         />
       </div>
     </div>

@@ -7,7 +7,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 }
 
 const baseInput =
-  'h-12 w-full border border-solid focus:outline-0 rounded-xl px-4 transition-all duration-300'
+  'h-12 w-full border border-solid hover:border-sky-700 focus:outline-0 rounded-xl px-4 transition-all duration-300'
 
 const InputComponent = (
   { label, errorMessage, ...inputProps }: InputProps,

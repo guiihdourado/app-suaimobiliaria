@@ -1,0 +1,1 @@
+export { printPrice } from './printPrice'

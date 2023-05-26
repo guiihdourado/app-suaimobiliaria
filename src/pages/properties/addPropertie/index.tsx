@@ -1,6 +1,6 @@
 import { MultiStep, RootLayout } from '@/components'
 import { useMemo } from 'react'
-import { Step1, Step2 } from './steps'
+import { Step1, Step2, Step3 } from './steps'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import * as yup from 'yup'
@@ -55,6 +55,11 @@ const AddProperties: React.FC = () => {
         ),
         stepNumber: 2,
         stepTitle: 'Localização',
+      },
+      {
+        step: <Step3 control={control} register={register}/>,
+        stepNumber: 3,
+        stepTitle: 'Caracteríticas principais',
       },
     ]
   }, [control, formState, register, setValue, watch])

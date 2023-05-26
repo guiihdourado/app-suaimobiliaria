@@ -20,6 +20,7 @@ const StepFooter: React.FC<StepFooterProps> = ({
         <Button
           onClick={() => setStepCurrentNumber(stepCurrentNumber - 1)}
           disabled={stepCurrentNumber === 1}
+          typeButton="secondary"
         >
           {'Anterior'}
         </Button>

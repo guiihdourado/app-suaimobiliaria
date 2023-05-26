@@ -4,19 +4,22 @@ import classnames from 'classnames'
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   errorMessage?: string
+  isRequired?: boolean
 }
 
 const baseInput =
   'h-12 w-full border border-solid hover:border-sky-700 focus:outline-0 rounded-xl px-4 transition-all duration-300'
 
 const InputComponent = (
-  { label, errorMessage, ...inputProps }: InputProps,
+  { label, errorMessage, isRequired, ...inputProps }: InputProps,
   ref: React.ForwardedRef<HTMLInputElement>,
 ): JSX.Element => {
   return (
     <div className="w-full">
       <div className="flex w-full justify-between">
-        {label && <label className="font-semibold text-sky-900">{label}</label>}
+        {label && <label className="font-semibold text-sky-900">{label}
+        {isRequired && <span className="text-red-500">*</span>}
+        </label>}
 
         {!!errorMessage && <span className="text-red-500">{errorMessage}</span>}
       </div>

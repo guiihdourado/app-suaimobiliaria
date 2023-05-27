@@ -1,4 +1,4 @@
-import {  Divider, Input, NumberInput } from '@/components'
+import {  Divider, Input, NumberInput, TextareaInput } from '@/components'
 import React from 'react'
 
 interface Step3Props {
@@ -57,7 +57,7 @@ const Step3: React.FC<Step3Props> = ({ control, register }) => {
         </div>
         <Divider />
         <div className="flex flex-col gap-2">
-          <span className="text-sky-900 font-semibold  text-xl">Valor</span>
+          <span className="text-sky-900 font-semibold text-xl">Valor</span>
           <div className="w-1/4 flex flex-col gap-10">
             {/* <CurrencyInput
               label="Valor do Imóvel"
@@ -84,12 +84,7 @@ const Step3: React.FC<Step3Props> = ({ control, register }) => {
           <span className="text-sky-900 font-semibold  text-xl">Descreva o Imóvel</span>
           <div className="w-1/4 flex flex-col gap-10">
             <Input label="Titulo" {...register('name')} isRequired />
-            <NumberInput
-              control={control}
-              label="IPTU"
-              name="iptu"
-              isRequired
-            />
+            <TextareaInput label='Descrição' name='description' register={register} isRequired />
           </div>
         </div>
       </div>

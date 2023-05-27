@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
+import { Step4 } from './steps/step4'
 
 const schema = yup.object().shape({
   name: yup.string().required('Nome obrigatório'),
@@ -37,6 +38,7 @@ const AddProperties: React.FC = () => {
   const { control, formState, register, setValue, watch } = useForm<LoginForm>({
     resolver: yupResolver(schema),
   })
+ 
   const steps = useMemo(() => {
     return [
       {
@@ -60,6 +62,17 @@ const AddProperties: React.FC = () => {
         step: <Step3 control={control} register={register}/>,
         stepNumber: 3,
         stepTitle: 'Caracteríticas principais',
+      },
+      {
+        step: (
+          <Step4
+            register={register}
+            setValue={setValue}
+            watch={watch}
+          />
+        ),
+        stepNumber: 4,
+        stepTitle: 'Compartilhe fotos do imóvel!',
       },
     ]
   }, [control, formState, register, setValue, watch])

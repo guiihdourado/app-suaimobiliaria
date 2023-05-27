@@ -33,7 +33,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
   return (
     <div className="w-full flex flex-col gap-12">
       <StepHeader steppers={steppers} stepCurrentNumber={stepCurrentNumber} />
-      <div className="w-full h-full flex flex-col justify-start items-center p-8">
+      <div className="w-full h-full flex flex-col justify-start items-center p-8 overflow-auto scrollbar-imob">
         <div className="w-full h-fit flex flex-col">
           <div className="mb-2">
             {title ? (
@@ -44,7 +44,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
               {stepTitle}
             </span>
           </div>
-          <div className="flex flex-col shadow-xl rounded-xl">
+          <div className="flex flex-col shadow-xl rounded-xl mb-8">
             <div className="p-10">{stepCurrent}</div>
             <StepFooter
               setStepCurrentNumber={setStepCurrentNumber}

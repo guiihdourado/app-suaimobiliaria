@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 interface TextareaProps {
@@ -8,21 +9,30 @@ interface TextareaProps {
   isRequired?: boolean;
 }
 
-const TextareaInput:React.FC<TextareaProps> = ({ label, name, register, error, isRequired }) => (
-  <div className="mb-4">
-    <label htmlFor={name} className="block text-sky-900 font-bold mb-2">
-      {label}
-      {isRequired && <span className="text-red-500">*</span>}
-    </label>
-    <textarea
-      id={name}
-      name={name}
-      className="w-full border border-gray-300 p-2 rounded-xl focus:outline-none focus:border-sky-600"
-      rows={4}
-      ref={register(`${name}`,{ required: 'Campo obrigatório' })}
-    />
-    {error && <span className="text-red-500">{error.message}</span>}
-  </div>
-);
+const TextareaInput:React.FC<TextareaProps> = ({ label, name, register, error, isRequired }) => {
+  return (
+    <div className="mb-4">
+      <div className="flex w-full justify-between items-center">
+        <label htmlFor={name} className="text-sm font-bold mb-1">
+          {label}
+          {isRequired && <span className="text-red-500">*</span>}
+        </label>
+
+        {!!error && <span className="text-red-500 text-sm font-bold">{error}</span>}
+      </div>
+
+      <textarea
+        id={name}
+        name={name}
+        className={classNames('w-full border border-gray-300 p-2 rounded-xl focus:outline-none focus:border-sky-600', {
+          'border-red-500': !!error,
+        })}
+        rows={4}
+        {...register(`${name}`)}
+      />
+      
+    </div>
+  );
+}
 
 export { TextareaInput }

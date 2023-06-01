@@ -23,7 +23,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
 }) => {
   const {
     field: { ref, value, onChange, onBlur },
-    fieldState: { invalid, error },
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -52,7 +52,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={name} className="font-medium text-gray-500">
+      <label htmlFor={name} className="text-sm font-bold mb-1">
         {label}
         {isRequired && <span className="text-red-500">*</span>}
       </label>
@@ -74,11 +74,8 @@ const NumberInput: React.FC<NumberInputProps> = ({
           +
         </button>
       </div>
-      {invalid ? (
-        <span className="text-red-500 text-sm">Este campo é obrigatório.</span>
-      ) : null}
       {error ? (
-        <span className="text-red-500 text-sm">{error.message}</span>
+        <span className="text-red-500 text-sm font-bold">{error.message}</span>
       ) : null}
     </div>
   )

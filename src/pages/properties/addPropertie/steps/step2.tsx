@@ -79,19 +79,22 @@ const Step2: React.FC<Step2Props> = ({
       <div className="flex flex-col gap-4 mt-2">
         <Input
           label="CEP"
-          errorMessage={formState.errors?.cep?.message}
-          {...register('cep')}
+          errorMessage={formState.errors?.zipCode?.message}
+          {...register('zipCode')}
+          isRequired
         />
         <div className="flex flex-1 gap-2">
           <Input
             label="Estado"
             errorMessage={formState.errors?.state?.message}
             {...register('state')}
+            isRequired
           />
           <Input
             label="Cidedade"
             errorMessage={formState.errors?.city?.message}
             {...register('city')}
+            isRequired
           />
         </div>
         <div className="flex flex-1 gap-2">
@@ -99,11 +102,26 @@ const Step2: React.FC<Step2Props> = ({
             label="Bairro"
             errorMessage={formState.errors?.neighborhood?.message}
             {...register('neighborhood')}
+            isRequired
           />
           <Input
             label="Endereço"
             errorMessage={formState.errors?.address?.message}
             {...register('address')}
+            isRequired
+          />
+        </div>
+        <div className="flex flex-1 gap-2">
+          <Input
+            label="Número"
+            errorMessage={formState.errors?.addressNumber?.message}
+            {...register('addressNumber')}
+            isRequired
+          />
+          <Input
+            label="Complemento"
+            errorMessage={formState.errors?.complement?.message}
+            {...register('complement')}
           />
         </div>
         {selectedPosition[0] !== 0 ? (

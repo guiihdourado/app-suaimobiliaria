@@ -1,23 +1,30 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useCallback } from 'react'
 import { StepFooter } from './stepFooter'
 import { StepHeader } from './stepHeader'
+import * as Yup from 'yup'
 
 export type StepperProps = {
   step: JSX.Element
   stepNumber: number
   stepTitle: string
+  schema: Yup.ObjectSchema<any>
+  validation: any
 }
 
 interface MultiStepProps {
   steppers: StepperProps[]
   handleFinish?: () => void
   title?: string
+  setError?: any
+  clearErrors?: any
 }
 
 const MultiStep: React.FC<MultiStepProps> = ({
   steppers,
   handleFinish,
+  setError,
   title,
+  clearErrors,
 }) => {
   const [stepCurrentNumber, setStepCurrentNumber] = useState(1)
 
@@ -50,7 +57,11 @@ const MultiStep: React.FC<MultiStepProps> = ({
               setStepCurrentNumber={setStepCurrentNumber}
               stepCurrentNumber={stepCurrentNumber}
               steppersNumber={steppers.length}
+              currentStepSchema={steppers[stepCurrentNumber - 1]?.schema} 
+              currentStepValidation={steppers[stepCurrentNumber - 1]?.validation}
+              setError={setError}
               handleFinish={handleFinish}
+              clearErrors={clearErrors}
             />
           </div>
         </div>

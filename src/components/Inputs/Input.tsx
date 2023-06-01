@@ -17,11 +17,11 @@ const InputComponent = (
   return (
     <div className="w-full">
       <div className="flex w-full justify-between">
-        {label && <label className="font-semibold text-sky-900">{label}
+        {label && <label className="text-sm font-bold mb-1">{label}
         {isRequired && <span className="text-red-500">*</span>}
         </label>}
 
-        {!!errorMessage && <span className="text-red-500">{errorMessage}</span>}
+        {!!errorMessage && <span className="text-red-500 text-sm font-bold">{errorMessage}</span>}
       </div>
       <input
         {...inputProps}

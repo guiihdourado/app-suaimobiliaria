@@ -62,7 +62,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
             </div>
 
             {isError && (
-              <span className="text-red-500 text-sm">
+              <span className="text-red-500 text-sm font-bold">
                 {errorMessage as string}
               </span>
             )}

@@ -113,7 +113,8 @@ const Select = (
 ): JSX.Element => {
   return (
     <div>
-      {label && <label className="text-sm font-bold mb-1">{label}</label>}
+      {label && <label className="text-sm font-bold mb-1">{label}
+      {isRequired ? <span className="text-red-500 text-sm font-bold">*</span> : null}</label>}
       <Controller
         control={control}
         name={name}
@@ -137,7 +138,7 @@ const Select = (
                 }}
               />
               {isError && (
-                <span className="text-[#ff0000] text-sm">
+                <span className="text-[#ff0000] text-sm font-bold">
                   {errorMessage as any}
                 </span>
               )}

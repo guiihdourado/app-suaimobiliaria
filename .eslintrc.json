@@ -1,5 +1,5 @@
 {
-  "extends": ["@rocketseat/eslint-config/react", "next"],
+  "extends": ["@rocketseat/eslint-config/react"],
   "rules": {
     "no-undef": "off"
   }

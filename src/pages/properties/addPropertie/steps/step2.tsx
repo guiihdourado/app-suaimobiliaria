@@ -13,7 +13,6 @@ interface Step2Props {
 }
 
 interface CepPromise {
-  cep: string
   state: string
   city: string
   street: string
@@ -29,7 +28,8 @@ const Step2: React.FC<Step2Props> = ({
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
     0, 0,
   ])
-  const cepWatch = watch('cep')
+
+  const zipCodeWatch = watch('zipCode')
 
   const searchAddress = useCallback(
     async (zipcode: string) => {
@@ -62,12 +62,12 @@ const Step2: React.FC<Step2Props> = ({
   }, [])
 
   useEffect(() => {
-    const cepWatchReplace = cepWatch?.replace('-', '').replace('.', '')
+    const cepWatchReplace = zipCodeWatch?.replace('-', '').replace('.', '')
     if (cepWatchReplace && cepWatchReplace.length === 8) {
       searchAddress(cepWatchReplace)
       getMakerPointer(cepWatchReplace)
     }
-  }, [cepWatch, searchAddress, getMakerPointer])
+  }, [zipCodeWatch, searchAddress, getMakerPointer])
 
   const handleMapClick = useCallback((event: LeafletMouseEvent) => {
     setSelectedPosition([event.latlng.lat, event.latlng.lng])
@@ -122,9 +122,10 @@ const Step2: React.FC<Step2Props> = ({
             label="Complemento"
             errorMessage={formState.errors?.complement?.message}
             {...register('complement')}
+            isRequired
           />
         </div>
-        {selectedPosition[0] !== 0 ? (
+        {selectedPosition[0] !== 0 && zipCodeWatch.length === 8 ? (
           <div className="w-full h-[500px]">
             <Map
               handleMapClick={handleMapClick}

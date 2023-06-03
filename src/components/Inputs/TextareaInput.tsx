@@ -5,11 +5,11 @@ interface TextareaProps {
   label: string;
   name: string;
   register: any;
-  error?: any;
+  errorMessage?: any;
   isRequired?: boolean;
 }
 
-const TextareaInput:React.FC<TextareaProps> = ({ label, name, register, error, isRequired }) => {
+const TextareaInput:React.FC<TextareaProps> = ({ label, name, register, errorMessage, isRequired }) => {
   return (
     <div className="mb-4">
       <div className="flex w-full justify-between items-center">
@@ -18,14 +18,14 @@ const TextareaInput:React.FC<TextareaProps> = ({ label, name, register, error, i
           {isRequired && <span className="text-red-500">*</span>}
         </label>
 
-        {!!error && <span className="text-red-500 text-sm font-bold">{error}</span>}
+        {!!errorMessage && <span className="text-red-500 text-sm font-bold">{errorMessage}</span>}
       </div>
 
       <textarea
         id={name}
         name={name}
         className={classNames('w-full border border-gray-300 p-2 rounded-xl focus:outline-none focus:border-sky-600', {
-          'border-red-500': !!error,
+          'border-red-500': !!errorMessage,
         })}
         rows={4}
         {...register(`${name}`)}

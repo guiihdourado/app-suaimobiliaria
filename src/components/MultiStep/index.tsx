@@ -13,10 +13,11 @@ export type StepperProps = {
 
 interface MultiStepProps {
   steppers: StepperProps[]
-  handleFinish?: () => void
+  handleFinish: () => void
   title?: string
   setError?: any
   clearErrors?: any
+  isLoading?: boolean
 }
 
 const MultiStep: React.FC<MultiStepProps> = ({
@@ -25,6 +26,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
   setError,
   title,
   clearErrors,
+  isLoading
 }) => {
   const [stepCurrentNumber, setStepCurrentNumber] = useState(1)
 
@@ -62,6 +64,7 @@ const MultiStep: React.FC<MultiStepProps> = ({
               setError={setError}
               handleFinish={handleFinish}
               clearErrors={clearErrors}
+              isLoading={isLoading}
             />
           </div>
         </div>

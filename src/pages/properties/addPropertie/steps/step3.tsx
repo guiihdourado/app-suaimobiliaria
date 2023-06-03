@@ -95,7 +95,7 @@ const Step3: React.FC<Step3Props> = ({ control, register, formState }) => {
               name='description' 
               register={register} 
               isRequired
-              error={formState?.errors?.description?.message} 
+              errorMessage={formState?.errors?.description?.message} 
             />
           </div>
         </div>

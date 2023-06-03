@@ -1,41 +1,57 @@
 import { MultiStep, RootLayout } from '@/components'
-import { useCallback, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Step1, Step2, Step3, Step4 } from './steps'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router';
 
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
+import { api } from '@/services/api'
 
-const schema = yup.object().shape({
-  name: yup.string().required('Nome obrigatório'),
-  description: yup.string().required('Descrição obrigatória'),
-  propertyStatus: yup.string().required('Status obrigatório'),
-  propertyType: yup.string().required('Tipo obrigatório'),
-  category: yup.string().required('Categoria obrigatória'),
-  subCategory: yup.string().required('Subcategoria obrigatória'),
-  zipCode: yup.string().required('CEP obrigatório'),
-  address: yup.string().required('Endereço obrigatório'),
-  city: yup.string().required('Cidade obrigatória'),
-  addressNumber: yup.string().required('Número obrigatório'),
-  state: yup.string().required('Estado obrigatório'),
-  neighborhood: yup.string().required('Bairro obrigatório'),
-  complement: yup.string().required('Complemento obrigatório'),
-  usefulArea: yup.string().required('Área útil obrigatória'),
-  totalArea: yup.string().required('Área total obrigatória'),
-  bedroomsNumber: yup.number().required('Número de quartos obrigatório'),
-  bathroomsNumber: yup.number().required('Número de banheiros obrigatório'),
-  garagesNumber: yup.number().required('Número de vagas obrigatório'),
-  suitesNumber: yup.number().required('Número de suítes obrigatório'),
-  price: yup.number().required('Preço obrigatório'),
-  iptu: yup.number().required('IPTU obrigatório'),
-  images: yup.array().required('Imagens obrigatórias'),
-})
 
-type LoginForm = yup.InferType<typeof schema>
+
+type LoginForm = {
+  name: string
+  description: string
+  propertyStatus: string
+  propertyType: string
+  category: {
+    label: string
+    value: string
+  }
+  subCategory: {
+    label: string
+    value: string
+  }
+  zipCode: string
+  address: string
+  city: string
+  addressNumber: string
+  state: string
+  neighborhood: string
+  complement: string
+  usefulArea: string
+  totalArea: string
+  bedroomsNumber: number
+  bathroomsNumber: number
+  garagesNumber: number
+  suitesNumber: number
+  price: number
+  iptu: number
+  images: string[]
+}
 
 const AddProperties: React.FC = () => {
-  const { control, formState, register, setValue, watch, setError, getValues, clearErrors } = useForm<LoginForm>({
-    resolver: yupResolver(schema),
+  const [isLoading, setIsLoading] = useState(false)
+
+  const router = useRouter();
+
+  const schema = useMemo(() => {
+    return yup.object().shape({})
+  }, [])
+
+  const { control, formState, register, setValue, watch, setError, clearErrors, handleSubmit } = useForm<LoginForm>({
+    resolver: yupResolver(schema)
   })
 
   const {
@@ -65,7 +81,8 @@ const AddProperties: React.FC = () => {
 
   const schameStep1 = useMemo(() => {
     return yup.object().shape({
-      propertyStatus: yup.string().required('Status obrigatório'),
+      propertyStatus: yup.string().required('Status do imóvel obrigatório'),
+      propertyType: yup.string().required('Tipo do imóvel obrigatório'),
       category: yup.object().shape(({
         label: yup.string().required('Categoria obrigatória'),
         value: yup.string().required('Categoria obrigatória'),
@@ -80,6 +97,7 @@ const AddProperties: React.FC = () => {
   const validateStep1 = useMemo(() => {
     return {
       propertyStatus,
+      propertyType,
       category,
       subCategory,
     }
@@ -98,7 +116,7 @@ const AddProperties: React.FC = () => {
       addressNumber: yup.string().required('Número obrigatório'),
       state: yup.string().required('Estado obrigatório'),
       neighborhood: yup.string().required('Bairro obrigatório'),
-      complement: yup.string(),
+      complement: yup.string().required('Complemento obrigatório'),
     })
   },[])
 
@@ -165,7 +183,10 @@ const AddProperties: React.FC = () => {
 
   const schemaStep4 = useMemo(() => {
     return yup.object().shape({
-      images: yup.array().required('Imagens obrigatórias'),
+      images: yup.array()
+        .min(5, 'Pelo menos 5 imagens são obrigatórias')
+        .max(50, 'No máximo 50 imagens são permitidas')
+        .required('Imagens obrigatórias'),
     })
   }, [])
 
@@ -185,6 +206,7 @@ const AddProperties: React.FC = () => {
             category={category} 
             subCategory={subCategory}
             propertyStatus={propertyStatus} 
+            propertyType={propertyType}
             formState={formState}
           />
         ),
@@ -220,6 +242,7 @@ const AddProperties: React.FC = () => {
             register={register}
             setValue={setValue}
             watch={watch}
+            formState={formState}
           />
         ),
         stepNumber: 4,
@@ -229,10 +252,68 @@ const AddProperties: React.FC = () => {
       },
     ]
   }, [control, formState, register, setValue, watch])
+
+  const handleFinish = handleSubmit((data) => {
+    setIsLoading(true);
+    const formData = new FormData();
+    
+    formData.append('name', data.name);
+    formData.append('description', data.description);
+    formData.append('propertyStatus', data.propertyStatus);
+    formData.append('propertyType', data.propertyType);
+    formData.append('category', data.category.value);
+    formData.append('subCategory', data.subCategory.value);
+    formData.append('zipCode', data.zipCode);
+    formData.append('address', data.address);
+    formData.append('city', data.city);
+    formData.append('addressNumber', data.addressNumber);
+    formData.append('state', data.state);
+    formData.append('neighborhood', data.neighborhood);
+    formData.append('complement', data.complement);
+    formData.append('usefulArea', data.usefulArea);
+    formData.append('totalArea', data.totalArea);
+    formData.append('bedroomsNumber', String(data.bedroomsNumber));
+    formData.append('bathroomsNumber', String(data.bathroomsNumber));
+    formData.append('garagesNumber', String(data.garagesNumber));
+    formData.append('suitesNumber', String(data.suitesNumber));
+    formData.append('price', String(data.price));
+    formData.append('iptu', String(data.iptu));
+    data.images.forEach((image: any, index) => {
+      const fileExtension = image.name.split('.').pop(); 
+      const fileName = `image_${index}.${fileExtension}`;
+    
+      const file = new File([image], fileName, { type: image.type });
+    
+      formData.append(`images`, file);
+    });
+    api
+      .post('/properties', formData)
+      .then(() => {
+        router.push('/properties')
+        alert('Imóvel cadastrado com sucesso!')
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { data } = error.response;
+          alert(data.message)
+          return;
+        } else {
+          alert('Erro ao tentar cadastrar imóvel!')
+        }
+      })
+      .finally(() => setIsLoading(false))
+  })
   
   return (
     <RootLayout>
-      <MultiStep steppers={steps} title="Vamos criar seu anúncio!" setError={setError} clearErrors={clearErrors} />
+      <MultiStep 
+        steppers={steps} 
+        title="Vamos criar seu anúncio!" 
+        setError={setError} 
+        clearErrors={clearErrors} 
+        handleFinish={handleFinish}
+        isLoading={isLoading}
+      />
     </RootLayout>
   )
 }

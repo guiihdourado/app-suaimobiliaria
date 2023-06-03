@@ -10,8 +10,9 @@ interface StepFooterProps {
   currentStepSchema: Yup.ObjectSchema<any> | undefined
   currentStepValidation: any
   setError: any
-  handleFinish: any
+  handleFinish: () => void
   clearErrors: any
+  isLoading?: boolean
 }
 
 const StepFooter: React.FC<StepFooterProps> = ({
@@ -22,8 +23,11 @@ const StepFooter: React.FC<StepFooterProps> = ({
   currentStepSchema,
   setError,
   handleFinish,
-  clearErrors
+  clearErrors,
+  isLoading
 }) => {
+  const isLastStep = stepCurrentNumber === steppersNumber
+
   const handleBack = () => {
     setStepCurrentNumber(stepCurrentNumber - 1)
   }
@@ -32,16 +36,19 @@ const StepFooter: React.FC<StepFooterProps> = ({
     // Implementar ação de salvar e sair
   }
 
-  console.log('---------- DEBUG ----------')
-  console.log(currentStepValidation)
-  console.log('---------- DEBUG ----------')
   const handleNext = useCallback(() => {
     if (currentStepSchema) {
       currentStepSchema
         .validate(currentStepValidation, { abortEarly: false })
         .then(() => {
-          setStepCurrentNumber(stepCurrentNumber + 1)
           clearErrors()
+          if (isLastStep) {
+            handleFinish()
+          }
+          if (!isLastStep) {
+            setStepCurrentNumber(stepCurrentNumber + 1)
+          }
+          window.scrollTo(0, 0);
         })
         .catch((error: Yup.ValidationError) => {          
           error.inner.forEach((e: any) => {
@@ -53,8 +60,6 @@ const StepFooter: React.FC<StepFooterProps> = ({
       setStepCurrentNumber(stepCurrentNumber + 1)
     }
   }, [currentStepSchema, setError, setStepCurrentNumber, stepCurrentNumber, currentStepValidation])
-
-  const isLastStep = stepCurrentNumber === steppersNumber
 
   return (
     <div className="w-full flex py-4 px-10 bg-[#F3F7F8] justify-center">
@@ -77,7 +82,7 @@ const StepFooter: React.FC<StepFooterProps> = ({
           >
             Salvar e sair
           </Button>
-          <Button onClick={handleNext}>
+          <Button onClick={handleNext} isLoading={isLoading}>
             {isLastStep ? 'Finalizar' : 'Próximo'}
           </Button>
         </div>

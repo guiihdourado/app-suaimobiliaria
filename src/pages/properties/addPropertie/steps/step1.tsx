@@ -5,14 +5,24 @@ import React, { useMemo, useState } from 'react'
 interface Step1Props {
   control: any
   setValue: any
-  category: string
-  subCategory: string
+  category: { value: string; label: string}
+  subCategory: { value: string; label: string}
   propertyStatus: string
+  propertyType: string
   formState: any
 }
 
-const Step1: React.FC<Step1Props> = ({ control, setValue, category, subCategory, propertyStatus, formState }) => {
-  const [typeOperation, setTypeOperation] = useState(propertyStatus || null)
+const Step1: React.FC<Step1Props> = ({ 
+  control, 
+  setValue, 
+  category, 
+  subCategory, 
+  propertyStatus, 
+  propertyType, 
+  formState 
+}) => {
+  const [statusPropertie, setStatusPropertie] = useState(propertyStatus || null)
+  const [typePropertie, setTypePropertie] = useState(propertyType || null)
 
   const optionsCategory = useMemo(() => {
     return [
@@ -167,38 +177,73 @@ const Step1: React.FC<Step1Props> = ({ control, setValue, category, subCategory,
   return (
     <div className="flex flex-col gap-10">
       <h1>Diga-nos, que tipo de operação deseja realizar?</h1>
-      <div className="flex flex-col gap-2">
-        <label className="text-sm font-bold mb-1">
-          Status do imóvel
-        <span className="text-red-500">*</span>
-        </label>
-        <div className="w-fit flex divide-x-[1px] border-[1px] rounded-xl">
-          <button
-            className={classNames('p-4', {
-              'bg-sky-600 text-white rounded-s-xl': typeOperation === 'sell',
-            })}
-            onClick={() => {
-              setTypeOperation('sell');
-              setValue('propertyStatus', 'sell')
-            }}
-          >
-            Venda
-          </button>
-          <button
-            className={classNames('p-4', {
-              'bg-sky-600 text-white rounded-e-xl': typeOperation === 'rent',
-            })}
-            onClick={() => {
-              setTypeOperation('rent');
-              setValue('propertyStatus', 'rent')
-            }}
-          >
-            Aluguel
-          </button>
+      <div className="flex justify-between">
+        <div className="w-1/2 flex flex-col gap-2">
+          <label className="text-sm font-bold mb-1">
+            Status do imóvel
+          <span className="text-red-500">*</span>
+          </label>
+          <div className="w-fit flex divide-x-[1px] border-[1px] rounded-xl">
+            <button
+              className={classNames('p-4', {
+                'bg-sky-600 text-white rounded-s-xl': statusPropertie === 'sell',
+              })}
+              onClick={() => {
+                setStatusPropertie('sell');
+                setValue('propertyStatus', 'sell')
+              }}
+            >
+              Venda
+            </button>
+            <button
+              className={classNames('p-4', {
+                'bg-sky-600 text-white rounded-e-xl': statusPropertie === 'rent',
+              })}
+              onClick={() => {
+                setStatusPropertie('rent');
+                setValue('propertyStatus', 'rent')
+              }}
+            >
+              Aluguel
+            </button>
+          </div>
+          {formState?.errors?.propertyStatus?.message ? (
+            <span className="text-red-500 text-sm font-bold">{formState?.errors?.propertyStatus?.message}</span>
+          ) : null}
         </div>
-        {formState?.errors?.propertyStatus?.message ? (
-          <span className="text-red-500 text-sm font-bold">{formState?.errors?.propertyStatus.message}</span>
-        ) : null}
+        <div className="w-1/2 flex flex-col gap-2">
+          <label className="text-sm font-bold mb-1">
+            Tipo do imóvel
+          <span className="text-red-500">*</span>
+          </label>
+          <div className="w-fit flex divide-x-[1px] border-[1px] rounded-xl">
+            <button
+              className={classNames('p-4', {
+                'bg-sky-600 text-white rounded-s-xl': typePropertie === 'residential',
+              })}
+              onClick={() => {
+                setTypePropertie('residential');
+                setValue('propertyType', 'residential')
+              }}
+            >
+              Residencial
+            </button>
+            <button
+              className={classNames('p-4', {
+                'bg-sky-600 text-white rounded-e-xl': typePropertie === 'commercial',
+              })}
+              onClick={() => {
+                setTypePropertie('commercial');
+                setValue('propertyType', 'commercial')
+              }}
+            >
+              Comercial
+            </button>
+          </div>
+          {formState?.errors?.propertyStatus?.message ? (
+            <span className="text-red-500 text-sm font-bold">{formState?.errors?.propertyType?.message}</span>
+          ) : null}
+        </div>
       </div>
       <div className="flex gap-4">
         <div className="flex flex-1 flex-col gap-2">

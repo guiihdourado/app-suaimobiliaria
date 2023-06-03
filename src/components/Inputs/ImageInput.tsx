@@ -9,9 +9,10 @@ interface ImageInputProps {
   register: any;
   setValue: any;
   value: any[];
+  errorMessage?: string;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({ name, register, setValue, value, dropzoneOptions }) => {
+const ImageInput: React.FC<ImageInputProps> = ({ name, register, setValue, value, dropzoneOptions, errorMessage }) => {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -90,6 +91,7 @@ const ImageInput: React.FC<ImageInputProps> = ({ name, register, setValue, value
           <p className="text-center text-gray-500">Arraste e solte uma imagem aqui ou clique para selecionar</p>
         </div>
       </div>
+      {!!errorMessage && <p className="text-red-500 text-sm font-bold">{errorMessage}</p>}
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="droppable">
